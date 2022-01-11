@@ -13,10 +13,16 @@ function parser(data) {
         : normalized.parish || normalized.district,
     street: normalized.address,
     housenumber: normalized.house_number,
+    ...(normalized.apartment_number ? { apartment: normalized.apartment_number } : {}),
+    ...(normalized.post_code ? { post_code: normalized.post_code } : {}),
   };
 }
 
 function normalizer(data) {
+  if (data.source === 'vzd') {
+    return normalizeVzd(data);
+  }
+
   const houseNumber = getHouseNumber(data.location_address || '');
   const houseNumRegex = new RegExp(
     ` ${(houseNumber || '').replace(/[^a-zA-Z0-9_-]/g, '.')}$`,
@@ -195,6 +201,30 @@ function normalizeString(input, removeSymbols = false, maxLength = 34) {
   }
 
   return output;
+}
+
+function normalizeVzd(data) {
+  const { location_address } = data;
+  const [fullAddress, city, parish, county, postCode] = location_address.split(', ');
+  const [address, apartmentNumber = ""] = fullAddress.split(' - ');
+  const [, street, houseNumber = ""] = address.includes(' ') ? address.match(/^(.*) ([0-9]+\s?.*?)$/) : [, address];
+
+  return {
+    ...data,
+    address: normalizeString(street, true),
+    house_number: normalizeString(
+      processText(houseNumber).join(' '),
+      true,
+      10,
+    ),
+    apartment_number: normalizeString(
+      processText(apartmentNumber).join(' '),
+      true,
+      10,
+    ),
+    district: normalizeString(city),
+    post_code: postCode || county || parish,
+  };
 }
 
 module.exports = parser;

@@ -218,6 +218,110 @@ describe('normalizer', () => {
         housenumber: '1',
       },
     ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Dienvidu iela 1 - 31, Salaspils, Salaspils nov., LV-1002',
+      },
+      {
+        city: 'salaspils',
+        street: 'dienvidu',
+        housenumber: '1',
+        apartment: '31',
+        post_code: 'LV-1002',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Salaspils iela 18 k-1 - 89, Rīga, LV-1002',
+      },
+      {
+        city: 'riga',
+        street: 'salaspils',
+        housenumber: '18 k 1',
+        apartment: '89',
+        post_code: 'LV-1002',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Zvejnieku iela 40B - 22B, Rīga, LV-1002',
+      },
+      {
+        city: 'riga',
+        street: 'zvejnieku',
+        housenumber: '40 b',
+        apartment: '22 b',
+        post_code: 'LV-1002',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Vītolu iela 22/26 - 1, Rīga, LV-1002',
+      },
+      {
+        city: 'riga',
+        street: 'vitolu',
+        housenumber: '22 26',
+        apartment: '1',
+        post_code: 'LV-1002',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: '"Ambulance" - 5, Snēpele, Snēpeles pag., Kuldīgas nov., LV-3328',
+      },
+      {
+        city: 'snepele',
+        street: 'ambulance',
+        housenumber: undefined,
+        apartment: '5',
+        post_code: 'LV-3328',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Strēlnieku prospekts 48 - 14, Jūrmala, LV-2015',
+      },
+      {
+        city: 'jurmala',
+        street: 'strelnieku prospekts',
+        housenumber: '48',
+        apartment: '14',
+        post_code: 'LV-2015',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: '2. Preču iela 13 - 3, Daugavpils, LV-5401',
+      },
+      {
+        city: 'daugavpils',
+        street: '2 precu',
+        housenumber: '13',
+        apartment: '3',
+        post_code: 'LV-5401',
+      },
+    ],
+    [
+      {
+        source: 'vzd',
+        location_address: 'Tērbatas iela 6/8, Rīga, LV-1050',
+      },
+      {
+        city: 'riga',
+        street: 'terbatas',
+        housenumber: '6 8',
+        apartment: undefined,
+        post_code: 'LV-1050',
+      },
+    ],
   ])('normalizes correctly: %j', (input, expectation) => {
     const output = normalizer(input);
 

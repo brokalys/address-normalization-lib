@@ -1,6 +1,6 @@
 {
   "name": "@brokalys/address-normalization",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": "git@github.com:brokalys/address-normalization-lib.git",
   "author": "Matiss Janis Aboltins <matiss@brokalys.com>",
   "license": "MIT",
