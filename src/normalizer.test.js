@@ -322,6 +322,19 @@ describe('normalizer', () => {
         post_code: 'LV-1050',
       },
     ],
+    [
+      {
+        source: 'vzd',
+        location_address: '"Vecā skola" - 3, Mazozolu pag., Ogres nov., LV-5065',
+      },
+      {
+        city: undefined,
+        street: 'veca skola',
+        housenumber: undefined,
+        apartment: '3',
+        post_code: 'LV-5065',
+      },
+    ],
   ])('normalizes correctly: %j', (input, expectation) => {
     const output = normalizer(input);
 

@@ -207,7 +207,11 @@ function normalizeVzd(data) {
   const { location_address } = data;
   const [fullAddress, city, parish, county, postCode] = location_address.split(', ');
   const [address, apartmentNumber = ""] = fullAddress.split(' - ');
-  const [, street, houseNumber = ""] = address.includes(' ') ? address.match(/^(.*) ([0-9]+\s?.*?)$/) : [, address];
+
+  const addressRegexp = /^(.*) ([0-9]+\s?.*?)$/;
+  const [, street, houseNumber = ""] = addressRegexp.test(address) ? address.match(addressRegexp) : [, address];
+
+  const district = normalizeString(city);
 
   return {
     ...data,
@@ -222,7 +226,7 @@ function normalizeVzd(data) {
       true,
       10,
     ),
-    district: normalizeString(city),
+    district: / pag\./.test(city) ? undefined : district,
     post_code: postCode || county || parish,
   };
 }
